@@ -277,9 +277,56 @@
 # sum = 0
 # for i in list_1:
 #     sum = sum + i
-#     print(i)
+#     print(sum)
+
+#append - add the value into last index
+
+# list_1 = [10,20,30,40,50]
+# print("before append",list_1)
+# list_1.append(60)
+# print("after append",list_1)
+
+#clear = clear the all elements in a list
+
+# list_1 = [10,20,30,40,50]
+# print("before append",list_1)
+# list_1.clear()
+# print("after append",list_1)
+
+#copy = copy of list to another
+
+# list_1 = [10,20,30,40,50]
+# print(list_1)
+# list_2 = list_1.copy()
+# print(list_2)
 
 
+#count 
+
+list_1 = [10,20,30,40,50,50]
+cnt = list_1.count(50)
+print("number:",cnt)
+
+#loop
+# count = 0
+# list_1 = [10,20,30,40,50,50,50]
+# for m in list_1:
+#     if(m==50):
+#         count= count +1
+#     else:
+#         count = count
+# print("number:",count)
+
+# even_list = []
+# odd_list  = []
+# list_1 = [11,21,33,40,50,50,50] 
+# for m in list_1:
+#     if(m%2==0):
+#         even_list.append(m)
+#     else:
+#         odd_list.append(m)
+# print(even_list)
+# print(odd_list)
 
 
 
