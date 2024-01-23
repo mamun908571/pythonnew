@@ -21,6 +21,11 @@ from . import views
 urlpatterns = [
     #path('admin/', admin.site.urls),
     path('',views.demo),
-    path('subpath1',views.demo1)
-    
+    path('subpath1',views.demo1),
+    path('admin/about',views.about_index,name='about'),
+    path('admin/about/insert',views.about_insert, name='about_insert'),
+    path('admin/edit/<int:id>',views.edit_index,name='edit_index'),
+    path('admin/edit/',views.about_edit,name='about_edit'),
+    path('admin/delet/<int:id>',views.delete_index,name='delete_index'),
+    path("admin/user/email_verification/<str:id>",views.email_verify,name='email_verify'),
 ]
