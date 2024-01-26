@@ -5,7 +5,7 @@ class About(models.Model):
     Name = models.CharField(max_length=500)
     Birthday = models.CharField(max_length=500)
     Phone = models.CharField(max_length=500)
-    Email = models.CharField(max_length=500)
+    Email = models.CharField(max_length=500, unique=True)
     No_Years_of_Experiences = models.CharField(max_length=500)
     No_Happy_Customers = models.CharField(max_length=500)
     No_Project_Finished = models.CharField(max_length=500)
@@ -14,6 +14,7 @@ class About(models.Model):
     date_time = models.CharField(max_length=500)
     v_c = models.CharField(max_length=500)
     v_status = models.CharField(max_length=10)
+    password = models.CharField(max_length=500)
 
 
 class Companies(models.Model):

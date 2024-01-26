@@ -27,29 +27,64 @@ def demo1(request):
     c = a + b
     #print("this is root url function")
     return HttpResponse(c)
+def login_admin (request):
+    email=request.POST.get("email")
+    password= request.POST.get("pass")
+    log_data = About.objects.get(Email=email)
+    
+    if(log_data.password==password and log_data.v_status=='1'):
+        request.session['user_id']=log_data.id
+        request.session['user_name']=log_data.Name
+        return redirect('about')
+    else:
+        return redirect('login')
+    return render(request,'admin/about.html')
 
+def login (request):
+    if 'user_id' in request.session:
+        return redirect('about')
+    else:
+
+        return render(request,'login.html')
+
+def logout (request):
+    request.session.flush()
+    return redirect('login')
+    
 
 def about_index(request):
-    all_data = About.objects.all()
-    
-    msg = messages.get_messages(request)
-    print(msg)
+    if 'user_id' in request.session:
+        all_data = About.objects.all()
+        
+        msg = messages.get_messages(request)
+        print(msg)
 
 
-    data = {'d':all_data,'msg':msg}
+        data = {'d':all_data,'msg':msg}
 
-    return render(request,'admin/about.html',data)
-# def email_verify(request,id):
-#     data = About.objects.get(v_c=id)
-#     data.v_status = 1
-#     data.save()
-#     return redirect('about')
+        return render(request,'admin/about.html',data)
+    else:
+        return redirect('login')
+
+def reg_confirm(request):
+    return render(request,'reg_conf.html')
 
 def email_verify(request,id):
     data = About.objects.get(v_c=id)
-    data.v_status = 1
-    data.save()
-    return redirect('about')
+    #data = get_object_or_404(About, v_c=id)
+    bool_ver = False
+    if data.v_status=="0":
+        bool_ver = False
+        
+        data.v_status = 1
+        data.save()
+        
+        #return HttpResponse("This is zero")
+    else:
+        bool_ver = True
+
+    bool_dic = {'d': bool_ver}
+    return render(request,'success.html',bool_dic)
 
 def about_insert(request):
     
@@ -65,6 +100,7 @@ def about_insert(request):
     Description = request.POST.get('desc')
     current_datetime = datetime.now()
     formatted_datetime = current_datetime.strftime("%d %b %Y-%I:%M %p")
+    password= request.POST.get('password')
     pattern = r"^[a-zA-Z0-9_.]+gmail.com$"
 
     if not all([Name, Date_of_Birth, Phone, Email, Years_of_Experiences, No_of_Happy_Customers, 
@@ -116,6 +152,7 @@ def about_insert(request):
     about_odj.date_time = formatted_datetime
     about_odj.v_c = encrypted_value
     about_odj.v_status = 0
+    about_odj.password = password
     about_odj.save()
 
 
@@ -123,7 +160,7 @@ def about_insert(request):
             
 
 
-    return redirect('about')
+    return redirect('reg_conf')
 
 def edit_index(request,id):
     data = About.objects.get(id=id)
