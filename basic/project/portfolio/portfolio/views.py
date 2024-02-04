@@ -11,14 +11,21 @@ from datetime import datetime
 from django.utils.html import format_html
 
 
-def demo(request):
-    title = "this is a demo html"
-    name = "Mamun"
-    product_name = ['p1','p2','p3']
-    data = {"t":title,"name":name,'prod':product_name}
+# def demo(request):
+#     title = "this is a demo html"
+#     name = "Mamun"
+#     product_name = ['p1','p2','p3']
+#     data = {"t":title,"name":name,'prod':product_name}
     
+#     #print("this is root url function")
+#     return render(request,'portfolio.html',data)
+
+def home(request):
+    data = About.objects.first()
+    context_data = {'d':data}
+
     #print("this is root url function")
-    return render(request,'portfolio.html',data)
+    return render(request,'portfolio.html',context_data)
 
 
 def demo1(request):
@@ -44,7 +51,6 @@ def login (request):
     if 'user_id' in request.session:
         return redirect('about')
     else:
-
         return render(request,'login.html')
 
 def logout (request):
@@ -53,18 +59,18 @@ def logout (request):
     
 
 def about_index(request):
-    if 'user_id' in request.session:
-        all_data = About.objects.all()
-        
-        msg = messages.get_messages(request)
-        print(msg)
+    # if 'user_id' in request.session:
+    all_data = About.objects.all()
+    
+    msg = messages.get_messages(request)
+    print(msg)
 
 
-        data = {'d':all_data,'msg':msg}
+    data = {'d':all_data,'msg':msg}
 
-        return render(request,'admin/about.html',data)
-    else:
-        return redirect('login')
+    return render(request,'admin/about.html',data)
+    # else:
+    #     return redirect('login')
 
 def reg_confirm(request):
     return render(request,'reg_conf.html')
