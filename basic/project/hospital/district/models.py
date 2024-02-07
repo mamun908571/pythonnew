@@ -5,7 +5,7 @@ from django.db import models
 from division.models import Divisions 
 
 
-class division(models.Model):
+class Districts(models.Model):
     name = models.CharField(max_length=400)
     div_id = models.ForeignKey(Divisions,models.CASCADE)
 

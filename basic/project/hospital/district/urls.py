@@ -23,6 +23,7 @@ from . import views as v
 urlpatterns = [
     #path('admin/', admin.site.urls),
     path('', v.index,name = "dis_index"),
+    path("district/insert", v.insert,name="district_insert"),
     #path('insert/', v.insert,name = "division_insert"),
     
 ]
